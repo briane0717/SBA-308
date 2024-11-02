@@ -1,14 +1,14 @@
 // The provided course information.
-const CourseInfo = {
+const courseInfo = {
   id: 451,
   name: "Introduction to JavaScript"
 };
 
 // The provided assignment group.
-const AssignmentGroup = {
+const assignmentGroup = {
   id: 12345,
   name: "Fundamentals of JavaScript",
-  course_id: 451,
+  course_id: 422,
   group_weight: 25,
   assignments: [
     {
@@ -33,7 +33,7 @@ const AssignmentGroup = {
 };
 
 // The provided learner submission data.
-const LearnerSubmissions = [
+const learnerSubmissions = [
   {
     learner_id: 125,
     assignment_id: 1,
@@ -76,26 +76,14 @@ const LearnerSubmissions = [
   }
 ];
 
-function getLearnerData(course, ag, submissions) {
-  // here, we would process this data to achieve the desired result.
-  const result = [
-    {
-      id: 125,
-      avg: 0.985, // (47 + 150) / (50 + 150)
-      1: 0.94, // 47 / 50
-      2: 1.0 // 150 / 150
-    },
-    {
-      id: 132,
-      avg: 0.82, // (39 + 125) / (50 + 150)
-      1: 0.78, // 39 / 50
-      2: 0.833 // late: (140 - 15) / 150
-    }
-  ];
+function getLearnerData(courseInfo, assignmentGroup, learnerSubmissions) {
+try{
+if (courseInfo.id !== assignmentGroup.course_id){
 
-  return result;
+  throw Error("These assignments don't belong to this course")
 }
 
-const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
-
-console.log(result);
+ } catch (error){
+  console.log(error);
+ }
+}getLearnerData(courseInfo,assignmentGroup,learnerSubmissions)
