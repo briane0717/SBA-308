@@ -98,9 +98,7 @@ for (let assignment of assignmentGroup.assignments){
       let score = submission.submission.score;
       let pointsPossible = assignment.points_possible
       console.log(score , pointsPossible);
-      results[learnerId] = { totalScore: 0, totalPossible: 0 };
-      results[learnerId].totalScore += score;
-      results[learnerId].totalPossible += pointsPossible;
+      results[learnerId] = {id: learnerId, avg: 0, assignments:{}, totalScore: 0, totalPossible: 0 }
     }
   }console.log(results);
   return results
