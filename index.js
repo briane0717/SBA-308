@@ -125,8 +125,7 @@ function getLearnerData(courseInfo, assignmentGroup, learnerSubmissions) {
       }
     }
 
-    console.log(results);
-    return results;
+    return Object.values(results);
 
   } catch (error) {
     console.log(error);
