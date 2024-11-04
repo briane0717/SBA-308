@@ -105,7 +105,8 @@ for (let assignment of assignmentGroup.assignments){
       results[learnerId].totalPossible += pointsPossible;
       if (pointsPossible > 0) {
         let scorePercentage = (score / pointsPossible) * 100;
-        console.log(scorePercentage);
+        results[learnerId].assignments[assignment.id] = scorePercentage;
+
       }
     }
   }console.log(results);
@@ -115,4 +116,5 @@ for (let assignment of assignmentGroup.assignments){
   console.log(error);
 }
 }
-  getLearnerData(courseInfo,assignmentGroup,learnerSubmissions)
+  const finalResults = getLearnerData(courseInfo,assignmentGroup,learnerSubmissions)
+  console.log(finalResults);
