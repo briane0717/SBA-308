@@ -39,7 +39,7 @@ const learnerSubmissions = [
     assignment_id: 1,
     submission: {
       submitted_at: "2023-01-25",
-      score: 47
+      score: "boo"
     }
   },
   {
@@ -99,6 +99,11 @@ function getLearnerData(courseInfo, assignmentGroup, learnerSubmissions) {
           const submittedDate = new Date(submission.submission.submitted_at);
           let score = submission.submission.score;
           const pointsPossible = assignment.points_possible;
+         
+          if (typeof score !== 'number' || typeof pointsPossible !== 'number') {
+            console.error(`Invalid data for learner ${learnerId}, assignment ${assignment.id}: score or points_possible is not a number.`);
+            continue;
+          } 
 
           if (!results[learnerId]) {
             results[learnerId] = { id: learnerId, avg: 0, assignments: {}, totalScore: 0, totalPossible: 0 };
