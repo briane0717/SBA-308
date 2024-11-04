@@ -21,7 +21,7 @@ const assignmentGroup = {
       id: 2,
       name: "Write a Function",
       due_at: "2023-02-27",
-      points_possible: 150
+      points_possible: 0
     },
     {
       id: 3,
@@ -115,7 +115,9 @@ function getLearnerData(courseInfo, assignmentGroup, learnerSubmissions) {
           if (pointsPossible > 0) {
             const scorePercentage = (score / pointsPossible) * 100;
             results[learnerId].assignments[assignment.id] = scorePercentage;
-          }
+          }else {
+            console.error(`Invalid points_possible for assignment ${assignment.id}: must be greater than zero.`);
+        }
         }
       }
     }
