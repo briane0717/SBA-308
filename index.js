@@ -96,8 +96,14 @@ for (let assignment of assignmentGroup.assignments){
       console.log(learnerId);
       const submittedDate = new Date(submission.submission.submitted_at);
       let score = submission.submission.score;
+      let pointsPossible = assignment.points_possible
+      console.log(score , pointsPossible);
+      results[learnerId] = { totalScore: 0, totalPossible: 0 };
+      results[learnerId].totalScore += score;
+      results[learnerId].totalPossible += pointsPossible;
     }
-  }
+  }console.log(results);
+  return results
 }
 } catch (error){
   console.log(error);
