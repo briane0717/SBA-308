@@ -8,7 +8,7 @@ const courseInfo = {
 const assignmentGroup = {
   id: 12345,
   name: "Fundamentals of JavaScript",
-  course_id: 422,
+  course_id: 451,
   group_weight: 25,
   assignments: [
     {
@@ -79,9 +79,20 @@ const learnerSubmissions = [
 function getLearnerData(courseInfo, assignmentGroup, learnerSubmissions) {
 try{
 if (courseInfo.id !== assignmentGroup.course_id){
-
   throw Error("These assignments don't belong to this course")
 }
+for (let assignment of assignmentGroup.assignments){
+  console.log(assignment.due_at)
+  assignment.due_at = new Date(assignment.due_at)
+  console.log(assignment.due_at);
+}
+for (let submission of learnerSubmissions) {
+  console.log(submission.submission.submitted_at);
+  submission.submission.submitted_at = new Date(submission.submission.submitted_at);
+  console.log(submission.submission.submitted_at); 
+}
+
+
 
  } catch (error){
   console.log(error);
