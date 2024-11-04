@@ -89,20 +89,21 @@ for (let assignment of assignmentGroup.assignments){
   const dueDate = new Date(assignment.due_at)
   if (dueDate > currentDate){
     continue;
-  } console.log(`${assignment.name}, due on ${dueDate}`);
+  } 
+  // console.log(`${assignment.name}, due on ${dueDate}`);
   for (let submission of learnerSubmissions) {
     if (submission.assignment_id === assignment.id) {
       const learnerId = submission.learner_id;
-      console.log(learnerId);
       const submittedDate = new Date(submission.submission.submitted_at);
       let score = submission.submission.score;
       let pointsPossible = assignment.points_possible
-      console.log(score , pointsPossible);
       results[learnerId] = {id: learnerId, avg: 0, assignments:{}, totalScore: 0, totalPossible: 0 }
+      results[learnerId].totalScore += score;
+      results[learnerId].totalPossible += pointsPossible;
     }
   }console.log(results);
-  return results
-}
+} return results
+
 } catch (error){
   console.log(error);
 }
