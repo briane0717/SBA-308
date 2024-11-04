@@ -81,17 +81,20 @@ try{
 if (courseInfo.id !== assignmentGroup.course_id){
   throw Error("These assignments don't belong to this course")
 }
+const currentDate = new Date()
+console.log(currentDate);
 for (let assignment of assignmentGroup.assignments){
-  console.log(assignment.due_at)
-  assignment.due_at = new Date(assignment.due_at)
-  console.log(assignment.due_at);
+  const dueDate = new Date(assignment.due_at)
+  console.log(dueDate);
+  if (dueDate > currentDate){
+    continue;
+  } console.log(`${assignment.name}, due on ${dueDate}`);
 }
 for (let submission of learnerSubmissions) {
   console.log(submission.submission.submitted_at);
-  submission.submission.submitted_at = new Date(submission.submission.submitted_at);
-  console.log(submission.submission.submitted_at); 
+  const submittedDate= new Date(submission.submission.submitted_at);
+  console.log(submittedDate); 
 }
-
 
 
  } catch (error){
