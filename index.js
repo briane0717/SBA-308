@@ -77,44 +77,61 @@ const learnerSubmissions = [
 ];
 
 function getLearnerData(courseInfo, assignmentGroup, learnerSubmissions) {
-try{
-if (courseInfo.id !== assignmentGroup.course_id){
-  throw Error("These assignments don't belong to this course")
-}
-const results = {}
-const currentDate = new Date()
-// console.log(currentDate);
+  try {
 
-for (let assignment of assignmentGroup.assignments){
-  const dueDate = new Date(assignment.due_at)
-  if (dueDate > currentDate){
-    continue;
-  } 
-  // console.log(`${assignment.name}, due on ${dueDate}`);
-  for (let submission of learnerSubmissions) {
-    if (submission.assignment_id === assignment.id) {
-      const learnerId = submission.learner_id;
-      const submittedDate = new Date(submission.submission.submitted_at);
-      let score = submission.submission.score;
-      let pointsPossible = assignment.points_possible
-      results[learnerId] = {id: learnerId, avg: 0, assignments:{}, totalScore: 0, totalPossible: 0 }
-      if (submittedDate > dueDate){
-        score *= 0.9
+    if (courseInfo.id !== assignmentGroup.course_id) {
+      throw Error("These assignments don't belong to this course");
+    }
+
+    const results = {};
+    const currentDate = new Date();
+    
+    for (let assignment of assignmentGroup.assignments) {
+      const dueDate = new Date(assignment.due_at);
+      if (dueDate > currentDate) {
+        continue;
       }
-      results[learnerId].totalScore += score;
-      results[learnerId].totalPossible += pointsPossible;
-      if (pointsPossible > 0) {
-        let scorePercentage = (score / pointsPossible) * 100;
-        results[learnerId].assignments[assignment.id] = scorePercentage;
 
+
+      for (let submission of learnerSubmissions) {
+        if (submission.assignment_id === assignment.id) {
+          const learnerId = submission.learner_id;
+          const submittedDate = new Date(submission.submission.submitted_at);
+          let score = submission.submission.score;
+          const pointsPossible = assignment.points_possible;
+
+          if (!results[learnerId]) {
+            results[learnerId] = { id: learnerId, avg: 0, assignments: {}, totalScore: 0, totalPossible: 0 };
+          }
+
+
+          if (submittedDate > dueDate) {
+            score *= 0.9;
+          }
+
+          results[learnerId].totalScore += score;
+          results[learnerId].totalPossible += pointsPossible;
+
+          if (pointsPossible > 0) {
+            const scorePercentage = (score / pointsPossible) * 100;
+            results[learnerId].assignments[assignment.id] = scorePercentage;
+          }
+        }
       }
     }
-  }console.log(results);
-} return results
+    for (let learnerId in results) {
+      if (results[learnerId].totalPossible > 0) {
+        results[learnerId].avg = (results[learnerId].totalScore / results[learnerId].totalPossible) * 100;
+      }
+    }
 
-} catch (error){
-  console.log(error);
+    console.log(results);
+    return results;
+
+  } catch (error) {
+    console.log(error);
+  }
 }
-}
-  const finalResults = getLearnerData(courseInfo,assignmentGroup,learnerSubmissions)
-  console.log(finalResults);
+
+const finalResults = getLearnerData(courseInfo, assignmentGroup, learnerSubmissions);
+console.log(finalResults);
