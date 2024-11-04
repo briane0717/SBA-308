@@ -98,6 +98,9 @@ for (let assignment of assignmentGroup.assignments){
       let score = submission.submission.score;
       let pointsPossible = assignment.points_possible
       results[learnerId] = {id: learnerId, avg: 0, assignments:{}, totalScore: 0, totalPossible: 0 }
+      if (submittedDate > dueDate){
+        score *= 0.9
+      }
       results[learnerId].totalScore += score;
       results[learnerId].totalPossible += pointsPossible;
     }
@@ -107,4 +110,5 @@ for (let assignment of assignmentGroup.assignments){
 } catch (error){
   console.log(error);
 }
-}getLearnerData(courseInfo,assignmentGroup,learnerSubmissions)
+}
+  getLearnerData(courseInfo,assignmentGroup,learnerSubmissions)
