@@ -103,6 +103,10 @@ for (let assignment of assignmentGroup.assignments){
       }
       results[learnerId].totalScore += score;
       results[learnerId].totalPossible += pointsPossible;
+      if (pointsPossible > 0) {
+        let scorePercentage = (score / pointsPossible) * 100;
+        console.log(scorePercentage);
+      }
     }
   }console.log(results);
 } return results
